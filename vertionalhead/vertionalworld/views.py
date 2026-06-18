@@ -7,6 +7,9 @@ from django.http import HttpResponse
 def home(request):
     return render(request,'home.html')
 
+def store(request):
+    context = {"data": "Passing Argument To Template"}
+    return render(request,'store.html',context)
 
 def userList(request):
     return render(request,'userlist.html')

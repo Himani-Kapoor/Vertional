@@ -21,6 +21,7 @@ urlpatterns = [
     path('', include('vertionalworld.urls')),
     path('home/', include('vertionalworld.urls')),
     path('userlist/', include('vertionalworld.urls')),
+    path('store/', include('vertionalworld.urls')),
     path('admin/', admin.site.urls),
     path('vertionalworld/', include('vertionalworld.urls')),
 ]
