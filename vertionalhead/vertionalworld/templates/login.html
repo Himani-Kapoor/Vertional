@@ -11,11 +11,15 @@
 
 <body>
     <center>
-    <form>
-        <input type="text" placeholder="write your name"/><br/>
-        <input type="password" placeholder="password"/><br/>
-        <button type="submit"> Submit</button>
+    <h2>Calculate Sum</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Calculate</button>
     </form>
+    {% if result is not None %}
+    <div style="margin-top:1rem;">Result: <strong>{{ result }}</strong></div>
+    {% endif %}
 </center>
 </body>
 </html>

@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .forms import SumForm
 
 
 # Create your views here.
@@ -7,7 +8,20 @@ from django.http import HttpResponse
 def home(request):
     return render(request,'home.html')
 def login(request):
-    return render(request,'login.html')
+    result = None
+    if request.method == 'POST':
+        form = SumForm(request.POST)
+        if form.is_valid():
+            a = form.cleaned_data['a']
+            b = form.cleaned_data['b']
+            def logic(x, y):
+                return x + y
+            result = logic(a, b)
+    else:
+        form = SumForm()
+
+    context = {'form': form, 'result': result}
+    return render(request, 'login.html', context)
 
 def store(request):
     def logic(a,b):
