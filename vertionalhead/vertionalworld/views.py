@@ -8,7 +8,13 @@ def home(request):
     return render(request,'home.html')
 
 def store(request):
-    context = {"data": "Passing Argument To Template"}
+    def logic(a,b):
+        c=a+b
+        return c
+    sum=logic(10,2)
+    
+
+    context = {"data": sum}
     return render(request,'store.html',context)
 
 def userList(request):
