@@ -1,6 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
+from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
 from .forms import SumForm
+from .models import Watch
 
 
 # Create your views here.
@@ -28,10 +31,35 @@ def store(request):
         c=a+b
         return c
     sum=logic(10,2)
-    
+    is_watching = False
+    if request.user.is_authenticated:
+        is_watching = Watch.objects.filter(user=request.user, target='store').exists()
 
-    context = {"data": sum}
+    context = {"data": sum, "is_watching": is_watching}
     return render(request,'store.html',context)
 
 def userList(request):
     return render(request,'userlist.html')
+
+
+@require_POST
+@login_required
+def subscribe_store(request):
+    target = 'store'
+    watch, created = Watch.objects.get_or_create(user=request.user, target=target)
+    return JsonResponse({'watching': True, 'created': created})
+
+
+@require_POST
+@login_required
+def unsubscribe_store(request):
+    target = 'store'
+    Watch.objects.filter(user=request.user, target=target).delete()
+    return JsonResponse({'watching': False})
+
+
+def watch_status(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({'watching': False})
+    watching = Watch.objects.filter(user=request.user, target='store').exists()
+    return JsonResponse({'watching': watching})
