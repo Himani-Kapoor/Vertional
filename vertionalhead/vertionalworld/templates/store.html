@@ -3,15 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- bootstrap cdn -->
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap">
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 </head>
 
 
-<body>
-    
+<body class="p-4">
+    <div class="container">
+        <h1>Store</h1>
+        <p>Sample data: {{ data }}</p>
 
-    
+        <button id="watch-btn" class="btn btn-primary" data-watching="{{ is_watching|yesno:'true,false' }}">
+            {% if is_watching %}Unwatch{% else %}Watch{% endif %}
+        </button>
+    </div>
+
+    <script>
+        // CSRF cookie helper
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        const btn = document.getElementById('watch-btn');
+        if (btn) {
+            btn.addEventListener('click', async () => {
+                const isAuthenticated = {{ user.is_authenticated|yesno:'true,false' }};
+                if (!isAuthenticated) {
+                    // redirect to login
+                    window.location.href = "{% url 'login' %}";
+                    return;
+                }
+
+                const currentlyWatching = btn.dataset.watching === 'true';
+                const url = currentlyWatching ? "{% url 'unsubscribe_store' %}" : "{% url 'subscribe_store' %}";
+
+                const resp = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': getCookie('csrftoken'),
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (!resp.ok) {
+                    alert('Request failed');
+                    return;
+                }
+
+                const data = await resp.json();
+                btn.dataset.watching = data.watching ? 'true' : 'false';
+                btn.textContent = data.watching ? 'Unwatch' : 'Watch';
+            });
+        }
+    </script>
 </body>
 </html>
