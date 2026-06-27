@@ -1,15 +1,16 @@
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from .forms import SumForm
-from .models import Watch
+from .models import Product, Watch
 
-
-# Create your views here.
 
 def home(request):
-    return render(request,'home.html')
+    featured_products = Product.objects.filter(is_featured=True)[:3]
+    return render(request, 'home.html', {'featured_products': featured_products})
+
+
 def login(request):
     result = None
     if request.method == 'POST':
@@ -17,29 +18,26 @@ def login(request):
         if form.is_valid():
             a = form.cleaned_data['a']
             b = form.cleaned_data['b']
-            def logic(x, y):
-                return x + y
-            result = logic(a, b)
+            result = a + b
     else:
         form = SumForm()
 
     context = {'form': form, 'result': result}
     return render(request, 'login.html', context)
 
+
 def store(request):
-    def logic(a,b):
-        c=a+b
-        return c
-    sum=logic(10,2)
+    products = Product.objects.all()
     is_watching = False
     if request.user.is_authenticated:
         is_watching = Watch.objects.filter(user=request.user, target='store').exists()
 
-    context = {"data": sum, "is_watching": is_watching}
-    return render(request,'store.html',context)
+    context = {'products': products, 'is_watching': is_watching}
+    return render(request, 'store.html', context)
+
 
 def userList(request):
-    return render(request,'userlist.html')
+    return render(request, 'userlist.html')
 
 
 @require_POST
