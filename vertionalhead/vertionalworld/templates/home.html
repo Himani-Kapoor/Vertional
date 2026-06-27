@@ -4,400 +4,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vertional World Watches | Home</title>
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
-
+    <title>Vertional World | Luxury Watches</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
     <style>
-        /* =========================
-           CSS Reset & Variables
-        ========================== */
         :root {
-            --bg-color: #060606;
-            --surface-color: #141414;
-            --surface-2: #1d1d1d;
-            --text-main: #f5f5f5;
-            --text-muted: #b8b8b8;
-            --accent-gold: #d4af37;
-            --accent-hover: #f0c75e;
-            --border-soft: rgba(212, 175, 55, 0.22);
-            --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.28);
+            --bg: #060606;
+            --panel: #131313;
+            --panel-2: #1c1c1c;
+            --text: #f6f2e8;
+            --muted: #b8b2a3;
+            --gold: #d2b15d;
+            --gold-2: #f0cb76;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background:
-                radial-gradient(circle at top left, rgba(212, 175, 55, 0.14), transparent 28%),
-                var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
-            min-height: 100vh;
-        }
-
-        h1, h2, h3, .brand-logo {
-            font-family: 'Playfair Display', serif;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        /* =========================
-           Navigation
-        ========================== */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.1rem 5%;
-            background: rgba(6, 6, 6, 0.88);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(14px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
-        }
-
-        .brand-logo {
-            font-size: 1.8rem;
-            color: var(--accent-gold);
-            letter-spacing: 2px;
-            font-weight: 600;
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 1.6rem;
-        }
-
-        .nav-links a {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-            transition: color 0.3s ease, transform 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent-gold);
-            transform: translateY(-1px);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -4px;
-            width: 100%;
-            height: 1px;
-            background: var(--accent-gold);
-            transform: scaleX(0);
-            transform-origin: center;
-            transition: transform 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            transform: scaleX(1);
-        }
-
-        /* =========================
-           Hero Section
-        ========================== */
-        .hero {
-            position: relative;
-            min-height: 100vh;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            margin-top: 72px;
-            padding: 4rem 20px;
-        }
-
-        .hero-video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 0;
-        }
-
-        .hero-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0.58));
-            z-index: 1;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 760px;
-            padding: 2rem;
-        }
-
-        .hero h1 {
-            font-size: clamp(2.6rem, 5vw, 4.3rem);
-            margin-bottom: 1rem;
-            color: var(--text-main);
-            letter-spacing: 0.5px;
-        }
-
-        .hero p {
-            font-size: 1.08rem;
-            color: #e2e2e2;
-            margin-bottom: 2rem;
-            max-width: 640px;
-            margin-inline: auto;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 14px 28px;
-            background: linear-gradient(135deg, var(--accent-gold), #f0c75e);
-            color: #111;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border-radius: 999px;
-            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.24);
-        }
-
-        .btn:hover {
-            background: linear-gradient(135deg, var(--accent-hover), var(--accent-gold));
-            transform: translateY(-3px);
-            box-shadow: 0 12px 28px rgba(212, 175, 55, 0.32);
-        }
-
-        /* =========================
-           Featured Products
-        ========================== */
-        .featured-section {
-            padding: 5.5rem 5%;
-            text-align: center;
-            background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0));
-        }
-
-        .section-title {
-            font-size: 2.35rem;
-            color: var(--accent-gold);
-            margin-bottom: 0.75rem;
-            letter-spacing: 0.4px;
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 2.5rem;
-        }
-
-        .product-card {
-            background: linear-gradient(180deg, var(--surface-color), var(--surface-2));
-            padding: 1.5rem;
-            border-radius: 16px;
-            border: 1px solid var(--border-soft);
-            box-shadow: var(--shadow-soft);
-            transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
-        }
-
-        .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
-            border-color: rgba(240, 199, 94, 0.4);
-        }
-
-        .product-img {
-            width: 100%;
-            height: 280px;
-            object-fit: cover;
-            border-radius: 12px;
-            margin-bottom: 1.2rem;
-            border: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .product-title {
-            font-size: 1.35rem;
-            margin-bottom: 0.35rem;
-        }
-
-        .product-price {
-            color: var(--accent-gold);
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-
-        /* =========================
-           Footer
-        ========================== */
-        footer {
-            background: linear-gradient(180deg, #040404, #080808);
-            text-align: center;
-            padding: 3.2rem 5%;
-            border-top: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .footer-content {
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-content p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        /* =========================
-           Responsive
-        ========================== */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero {
-                padding: 2rem 16px;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                font-size: 1rem;
-            }
-
-            .section-title {
-                font-size: 1.9rem;
-            }
-
-            .product-card {
-                padding: 1.25rem;
-            }
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Montserrat', sans-serif; background: linear-gradient(135deg, #060606, #101010); color: var(--text); line-height: 1.6; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        a { color: inherit; text-decoration: none; }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; background: rgba(0,0,0,0.75); position: sticky; top: 0; z-index: 10; backdrop-filter: blur(10px); }
+        .brand { color: var(--gold); font-size: 1.5rem; font-weight: 600; }
+        .nav-links { display: flex; gap: 1.2rem; list-style: none; }
+        .hero { min-height: 86vh; display: grid; place-items: center; text-align: center; padding: 3rem 1.5rem; background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=1600&q=80') center/cover; }
+        .hero h1 { font-size: clamp(2.2rem, 4.5vw, 3.7rem); margin-bottom: 1rem; }
+        .hero p { max-width: 680px; margin: 0 auto 1.6rem; color: var(--muted); }
+        .btn { display: inline-block; padding: 0.85rem 1.3rem; border-radius: 999px; background: linear-gradient(135deg, var(--gold), var(--gold-2)); color: #111; font-weight: 700; } 
+        .container { width: min(1120px, calc(100% - 2rem)); margin: 0 auto; padding: 3rem 0; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.4rem; margin-top: 1.4rem; }
+        .product-card { background: var(--panel); border: 1px solid rgba(210,177,93,0.2); border-radius: 16px; padding: 1rem; box-shadow: 0 12px 30px rgba(0,0,0,0.25); }
+        .product-card img { width: 100%; height: 220px; object-fit: cover; border-radius: 12px; margin-bottom: 0.8rem; }
+        .product-card p { color: var(--muted); font-size: 0.95rem; }
+        .price { color: var(--gold); font-weight: 700; margin: 0.4rem 0 0.8rem; }
+        .section-title { color: var(--gold); margin-bottom: 0.3rem; }
+        footer { padding: 2rem 5%; text-align: center; color: var(--muted); border-top: 1px solid rgba(255,255,255,0.08); }
     </style>
 </head>
 <body>
-
-    <!-- Navigation -->
-    <nav>
-        <div class="brand-logo">Vertional World</div>
-
-        <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#collection">Collection</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
-
-    <!-- Hero Section with Video Background -->
-    <header class="hero" id="home">
-
-        <video autoplay muted loop playsinline class="hero-video">
-            <source src="{% static 'vertionalworld/videos/Hands_of_watch_assemble_at_las.mp4' %}" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-
-        <div class="hero-overlay"></div>
-
-        <div class="hero-content">
-            <h1>Master Your Time</h1>
-
-            <p>
-                Discover a world of precision, elegance, and unmatched
-                craftsmanship with our exclusive collection of luxury
-                timepieces.
-            </p>
-
-            <a href="#collection" class="btn">
-                Explore Collection
-            </a>
-        </div>
-
-    </header>
-
-    <!-- Featured Products -->
-    <section class="featured-section" id="collection">
-
-        <h2 class="section-title">Featured Timepieces</h2>
-
-        <div class="product-grid">
-
-            <!-- Product 1 -->
-            <div class="product-card">
-                <img
-                    src="https://images.unsplash.com/photo-1524592094714-0f0654ece975?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
-                    alt="Classic Leather Watch"
-                    class="product-img"
-                >
-
-                <h3 class="product-title">The Heritage Classic</h3>
-
-                <p class="product-price">$450.00</p>
-
-                <button class="btn" style="padding:10px 20px;font-size:0.8rem;">
-                    Add to Cart
-                </button>
-            </div>
-
-            <!-- Product 2 -->
-            <div class="product-card">
-                <img
-                    src="https://images.unsplash.com/photo-1587836374828-cb4387860956?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
-                    alt="Modern Silver Watch"
-                    class="product-img"
-                >
-
-                <h3 class="product-title">Silver Meridian</h3>
-
-                <p class="product-price">$620.00</p>
-
-                <button class="btn" style="padding:10px 20px;font-size:0.8rem;">
-                    Add to Cart
-                </button>
-            </div>
-
-            <!-- Product 3 -->
-            <div class="product-card">
-                <img
-                    src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
-                    alt="Black Chronograph"
-                    class="product-img"
-                >
-
-                <h3 class="product-title">Midnight Chrono</h3>
-
-                <p class="product-price">$895.00</p>
-
-                <button class="btn" style="padding:10px 20px;font-size:0.8rem;">
-                    Add to Cart
-                </button>
-            </div>
-
+<nav>
+    <a class="brand" href="{% url 'home' %}">Vertional World</a>
+    <ul class="nav-links">
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'store' %}">Store</a></li>
+        <li><a href="{% url 'login' %}">Login</a></li>
+    </ul>
+</nav>
+<header class="hero">
+    <div>
+        <h1>Luxury watches, curated for modern life.</h1>
+        <p>From elegant dress pieces to bold sport chronographs, Vertional World brings together precision craftsmanship and timeless design.</p>
+        <a class="btn" href="{% url 'store' %}">Shop the collection</a>
+    </div>
+</header>
+<section class="container">
+    <h2 class="section-title">Featured picks</h2>
+    <p>Handpicked watches designed to elevate every moment.</p>
+    <div class="product-grid">
+        {% for product in featured_products %}
+        <article class="product-card">
+            <img src="{{ product.image_url|default:'https://images.unsplash.com/photo-1524592094714-0f0654ece975?auto=format&fit=crop&w=700&q=80' }}" alt="{{ product.name }}">
+            <h3>{{ product.name }}</h3>
+            <p>{{ product.short_description }}</p>
+            <div class="price">${{ product.price }}</div>
+            <a class="btn" href="{% url 'store' %}">View details</a>
+        </article>
+        {% empty %}
+        <p>No featured watches yet. Please add products from the admin panel.</p>
+        {% endfor %}
+    </div>
+</section>
+<footer>
+    <p>Vertional World © 2026 • Premium watches online</p>
+</footer>
+</body>
+</html>
         </div>
     </section>
 
